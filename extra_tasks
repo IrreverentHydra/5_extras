@@ -1,0 +1,57 @@
+1)  irreverenthydra@irreverenthydra-VirtualBox:~$ sudo addgroup developer
+     	Добавляется группа «developer» (GID 1001) ...
+     	Готово.
+     irreverenthydra@irreverenthydra-VirtualBox:~$ sudo usermod -aG developer  irreverenthydra
+     irreverenthydra@irreverenthydra-VirtualBox:~$ sudo usermod -aG developer username
+     irreverenthydra@irreverenthydra-VirtualBox:~$ sudo mkdir developer
+     irreverenthydra@irreverenthydra-VirtualBox:~$ ls -la
+drwxr-xr-x  2 root            root             4096 окт 24 21:40  developer
+     irreverenthydra@irreverenthydra-VirtualBox:~$ sudo chown root:developer /home/irreverenthydra/developer/
+    irreverenthydra@irreverenthydra-VirtualBox:~$ ls -la
+		drwxr-xr-x  2 root            developer        4096 окт 24 21:40  developer
+    irreverenthydra@irreverenthydra-VirtualBox:~$ sudo chmod 775 /home/irreverenthydra/developer/
+    irreverenthydra@irreverenthydra-VirtualBox:~$ sudo chmod g+s /home/irreverenthydra/developer/
+   irreverenthydra@irreverenthydra-VirtualBox:~$ cd developer/
+   irreverenthydra@irreverenthydra-VirtualBox:~/developer$ vim Hello.txt
+		Hello from irreverenthydra
+   irreverenthydra@irreverenthydra-VirtualBox:~/developer$ su username
+   username@irreverenthydra-VirtualBox:/home/irreverenthydra/developer$ vim Hello.txt
+		Hello from irreverenthydra
+		Hello from username
+    
+2) irreverenthydra@irreverenthydra-VirtualBox:~/developer$ sudo mkdir changing
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer$ sudo chown root:developer changing/
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer$ sudo chmod +t changing/
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer$ sudo chmod ug+rw changing/
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer$ cd changing/
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer/changing$ vim TryToDel.txt
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer/changing$ su username
+    username@irreverenthydra-VirtualBox:/home/irreverenthydra/developer/changing$ cat TryToDel.txt
+username cannot del this
+    username@irreverenthydra-VirtualBox:/home/irreverenthydra/developer/changing$ vim Deletion.txt
+    username@irreverenthydra-VirtualBox:/home/irreverenthydra/developer/changing$ cat Deletion.txt
+					Hydra cannot del this
+    username@irreverenthydra-VirtualBox:/home/irreverenthydra/developer/changing$ rm TryToDel.txt
+rm: невозможно удалить 'TryToDel.txt': Операция не позволена
+    username@irreverenthydra-VirtualBox:/home/irreverenthydra/developer/changing$ su irreverenthydra
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer/changing$ rm Deletion.txt
+    			rm: невозможно удалить 'Deletion.txt': Операция не позволена 
+    irreverenthydra@irreverenthydra-VirtualBox:~/developer/changing$ rm TryToDel.txt (done)
+    
+3) irreverenthydra@irreverenthydra-VirtualBox:~$ mkdir secretplace
+irreverenthydra@irreverenthydra-VirtualBox:~$ cd secretplace/
+irreverenthydra@irreverenthydra-VirtualBox:~/secretplace$ vim first_file.txt (This is the first file)
+irreverenthydra@irreverenthydra-VirtualBox:~/secretplace$ vim second_file.txt (This is the second file)
+irreverenthydra@irreverenthydra-VirtualBox:~/secretplace$ vim third_file.txt (This is the third file)
+irreverenthydra@irreverenthydra-VirtualBox:~/secretplace$ ls secretplace
+ls: невозможно получить доступ к 'secretplace': Нет такого файла или каталога
+irreverenthydra@irreverenthydra-VirtualBox:~/secretplace$ cd ..
+irreverenthydra@irreverenthydra-VirtualBox:~$ ls secretplace/
+first_file.txt  second_file.txt  third_file.txt
+irreverenthydra@irreverenthydra-VirtualBox:~$ chmod ugo-rw secretplace/
+irreverenthydra@irreverenthydra-VirtualBox:~$ chmod ugo+x secretplace/
+
+irreverenthydra@irreverenthydra-VirtualBox:~$ ls secretplace/
+ls: невозможно открыть каталог 'secretplace/': Отказано в доступе
+irreverenthydra@irreverenthydra-VirtualBox:~$ cat /home/irreverenthydra/secretplace/first_file.txt
+This is the first file
